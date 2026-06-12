@@ -1,0 +1,46 @@
+### Variables para las pruebas
+# Nota: Ajusta el puerto (ej. 5000, 5001, o el que asigne ASP.NET Core) según lo que muestre tu terminal al correr la app.
+@host = http://localhost:5000
+
+### 1. GET Inicial: Obtener todos los nodos (deben aparecer los 2 iniciales)
+GET {{host}}/api/nodos
+Accept: application/json
+
+###
+
+### 2. POST Válido: Agregar un nuevo nodo
+POST {{host}}/api/nodos
+Content-Type: application/json
+
+{
+    "id": 15,
+    "valor": "Hijo Derecho"
+}
+
+###
+
+### 3. GET de Verificación: Comprobar que la lista ahora tiene 3 elementos
+GET {{host}}/api/nodos
+Accept: application/json
+
+###
+
+### 4. POST Inválido (Extra): Prueba de Conflicto 409 (Id duplicado)
+POST {{host}}/api/nodos
+Content-Type: application/json
+
+{
+    "id": 10,
+    "valor": "Nodo Duplicado"
+}
+
+###
+
+### 5. POST Inválido (Extra): Prueba de Bad Request 400 (Id inválido y valor vacío)
+POST {{host}}/api/nodos
+Content-Type: application/json
+
+{
+    "id": -1,
+    "valor": ""
+}
